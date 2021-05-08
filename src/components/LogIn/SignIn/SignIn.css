@@ -1,0 +1,48 @@
+.center{
+	margin-top:20px;
+}
+.head{
+	font-size:2em;
+	font-weight:bold;
+}
+label{
+	font-size:.9em;
+	display:block;
+	padding-top:15px;
+	font-weight:bold;
+}
+.input{
+	font-family:courier;
+	width:80%;
+	height:20px;
+	background:none;
+	border-radius:3px;
+	border:1px solid black;
+}
+.input:hover{
+	background: black;
+	color:white;
+}
+.signIn{
+	font-family:courier;
+	font-size:.7em;
+	font-weight:bold;
+	border:1px solid black;
+	border-radius:3px;
+	background:none;
+	margin-top:15px;
+	cursor:pointer;
+	height:20px;
+}
+.register{
+	margin-top:20px;
+	font-size:.7em;
+}
+.link {
+cursor:pointer;
+display:inline-block;
+}
+.signIn:hover, .link:hover{
+	background: black;
+	color:white;
+}
