@@ -5,13 +5,13 @@ class SignIn extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			signInEmail: '',
+			signInUsername: '',
 			signInPassword: ''
 		}
 	}
 
-	onEmailChange = (event) => {
-		this.setState({signInEmail: event.target.value})
+	onUsernameChange = (event) => {
+		this.setState({signInUsername: event.target.value})
 	}
 
 	onPasswordChange = (event) => {
@@ -23,15 +23,18 @@ class SignIn extends Component {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body:JSON.stringify({
-				email:this.state.signInEmail,
+				username:this.state.signInUsername,
 				password: this.state.signInPassword
 			})
 		})
 		.then(response => response.json())
 		.then(user => {
-			if(user.id){
+			if(user._id){
 				this.props.loadUser(user);
-				this.props.onRouteChange('home');	
+				this.props.onRouteChange('home');
+				alert("Sign in successful")
+			} else {
+				alert(user)
 			}
 		})
 	}
@@ -47,8 +50,8 @@ class SignIn extends Component {
 					<div className='shadow' style={{borderRadius:'3px', padding:'15px 50px'}}>
 						<p className="head">Sign In</p>
 						<div> 
-							<label>E-mail</label>
-							<input onChange={this.onEmailChange} type="email" className='input'/>
+							<label>Username</label>
+							<input onChange={this.onUsernameChange} type="text" className='input'/>
 						</div>
 						<div>
 							<label>Password</label>

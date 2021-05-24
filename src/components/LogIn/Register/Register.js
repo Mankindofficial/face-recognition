@@ -7,7 +7,7 @@ class Register extends React.Component {
 		super(props);
 		this.state = {
 			name: '',
-			email: '',
+			username: '',
 			password: ''
 		}
 	}
@@ -16,8 +16,8 @@ class Register extends React.Component {
 		this.setState({name: event.target.value})
 	}
 
-	onEmailChange = (event) => {
-		this.setState({email: event.target.value})
+	onUsernameChange = (event) => {
+		this.setState({username: event.target.value})
 	}
 
 	onPasswordChange = (event) => {
@@ -30,7 +30,7 @@ class Register extends React.Component {
 			headers: {'Content-Type': 'application/json'},
 			body:JSON.stringify({
 				name:this.state.name,
-				email:this.state.email,
+				username:this.state.username,
 				password: this.state.password
 			})
 		})
@@ -58,15 +58,15 @@ class Register extends React.Component {
 							<input onChange={this.onNameChange} type="text" className='input'/>
 						</div>
 						<div>
-							<label>E-mail</label>
-							<input onChange={this.onEmailChange} type="email" className='input'/>
+							<label>Username</label>
+							<input onChange={this.onUsernameChange} type="text" className='input'/>
 						</div>
 						<div>
 							<label>Password</label>
 							<input onChange={this.onPasswordChange} type="password" className='input'/>
 						</div>
 						<div className='center'>
-							<input onClick={this.onRegister} type="submit" class="signIn" value="Register"/>
+							<input onClick={this.onRegister} type="submit" className="signIn" value="Register"/>
 						</div>
 						<div className='register'>
 							<span>Already have an account? </span><span className='link' onClick={() => onRouteChange('signIn')}>Sign In</span>

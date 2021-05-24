@@ -23,24 +23,18 @@ class App extends Component {
 			box: {},
 			route:'signIn',
 			user: {
-				id: '',
-				name: '',
-				email: '',
-				password: '',
-				entries: 0,
-				joined:''
+			  _id: '60aaa5c9eb672137e0af7161',
+			  name: 'Jack Doe',
+			  username: 'johndoe@gmail.com',
+			  password: 'unknown',
+			  entries: 0,
+			  joined: '2021-05-23T18:58:17.430Z'
 			}
 		}
 	}
 
 	loadUser = (data) => {
 		this.setState({ user: data})
-	}
-
-	componentDidMount() {
-		fetch('http://localhost:5000')
-		.then(response => response.json())
-		// .then(console.log)
 	}
 
 	calculateFaceLocation = (data) => {
@@ -72,10 +66,10 @@ class App extends Component {
 				fetch('http://localhost:5000/imageEntry', {
 					method:'put',
 					headers: {'Content-Type':'application/json'},
-					body:JSON.stringify({id:this.state.user.id})
+					body:JSON.stringify({username:this.state.user.username})
 				}).then(response => response.json())
 				.then(data => {
-					this.setState(Object.assign(this.state.user, {entries: data} ))
+					this.setState(Object.assign(this.state.user, {entries: data.entries, rank: data.rank} ))
 				});
 			}
 			this.displayFaceBox(this.calculateFaceLocation(response))
@@ -85,6 +79,7 @@ class App extends Component {
 
 	onRouteChange = (route) => {
 		this.setState({route})
+		this.setState({ input: ""})
 	}
 
 	render(){
@@ -95,10 +90,10 @@ class App extends Component {
 	      ? <div>
 	      		<Navigation onRouteChange={this.onRouteChange}/>
 	      		<Logo/>
-				    <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-				    <ImageRecognitionForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-				   	<FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
-	     		</div>
+			    <Rank name={this.state.user.name} entries={this.state.user.entries} rank={this.state.user.rank}/>
+			    <ImageRecognitionForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+			   	<FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+     		</div>
 	      : ( this.state.route === 'signIn'
 	      	? <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
 	      	: <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>

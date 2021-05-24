@@ -1,5 +1,5 @@
 .center{
-	margin-top:20px;
+	/*margin-top:20px;*/
 }
 .head{
 	font-size:2em;
@@ -13,7 +13,7 @@ label{
 }
 .input{
 	font-family:courier;
-	width:80%;
+	/*width:80%;*/
 	height:20px;
 	background:none;
 	border-radius:3px;
