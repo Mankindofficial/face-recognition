@@ -24,23 +24,31 @@ class Register extends React.Component {
 		this.setState({password: event.target.value})
 	}
 
-	onRegister = () => {
-		fetch('http://localhost:5000/register', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body:JSON.stringify({
-				name:this.state.name,
-				username:this.state.username,
-				password: this.state.password
+	onRegister = (e) => {
+		e.preventDefault()
+		if (this.state.name === "" || this.state.password === "" || this.state.username === "") {
+			alert("Fill in your details!")
+		} else {
+			fetch('https://pacific-savannah-26623.herokuapp.com/register', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body:JSON.stringify({
+					name:this.state.name,
+					username:this.state.username,
+					password: this.state.password
+				})
 			})
-		})
-		.then(response => response.json())
-		.then(user => {
-			if(user){
-				this.props.loadUser(user);
-				this.props.onRouteChange('home');
-			}
-		})
+			.then(response => response.json())
+			.then(user => {
+				if(user){
+					this.props.loadUser(user);
+					this.props.onRouteChange('home');
+					alert("Account created successfully")
+				} else {
+					alert("Error. Try again")
+				}
+			})
+		}
 	}
 
 	render(){
@@ -51,7 +59,7 @@ class Register extends React.Component {
 					<h3 className='dim' onClick={() => onRouteChange('signIn')} style={{textDecoration:'underline', paddingRight:'10px', cursor: 'pointer'}}>Sign In</h3>
 				</nav>
 				<div  className='center'>
-					<div className='shadow' style={{borderRadius:'3px', padding:'15px 50px'}}>
+					<form onSubmit={this.onRegister} className='shadow' style={{padding:'15px 50px'}}>
 						<p className="head">Register</p>
 						<div>
 							<label>Name</label>
@@ -71,7 +79,7 @@ class Register extends React.Component {
 						<div className='register'>
 							<span>Already have an account? </span><span className='link' onClick={() => onRouteChange('signIn')}>Sign In</span>
 						</div>
-					</div>	
+					</form>	
 				</div>
 			</div>
 		);

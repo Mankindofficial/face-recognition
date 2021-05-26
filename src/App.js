@@ -18,15 +18,14 @@ class App extends Component {
 	constructor(){
 		super();
 		this.state = {
-			input: '',
+	    	input: '',
 			imageUrl: '',
 			box: {},
-			route:'signIn',
-			user: {
-			  _id: '60aaa5c9eb672137e0af7161',
-			  name: 'Jack Doe',
-			  username: 'johndoe@gmail.com',
-			  password: 'unknown',
+			route: window.localStorage.getItem('route') || 'signIn',
+			user: JSON.parse(window.localStorage.getItem('user')) || {
+			  _id: '60ba5c9eb672137e0af7161',
+			  name: 'Jack Sparrow',
+			  username: 'Captain Jack',
 			  entries: 0,
 			  joined: '2021-05-23T18:58:17.430Z'
 			}
@@ -35,6 +34,7 @@ class App extends Component {
 
 	loadUser = (data) => {
 		this.setState({ user: data})
+	    window.localStorage.setItem('user', JSON.stringify(data))
 	}
 
 	calculateFaceLocation = (data) => {
@@ -58,18 +58,20 @@ class App extends Component {
 		this.setState({ input: event.target.value});
 	}
 
-	onButtonSubmit = () => {
+	onButtonSubmit = (e) => {
+		e.preventDefault()
 		this.setState({ imageUrl: this.state.input });
 		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
 		.then(response => {
 			if(response){
-				fetch('http://localhost:5000/imageEntry', {
+				fetch('https://pacific-savannah-26623.herokuapp.com/imageEntry', {
 					method:'put',
 					headers: {'Content-Type':'application/json'},
 					body:JSON.stringify({username:this.state.user.username})
 				}).then(response => response.json())
 				.then(data => {
-					this.setState(Object.assign(this.state.user, {entries: data.entries, rank: data.rank} ))
+					const newUser = Object.assign(this.state.user, {entries: data.entries, rank: data.rank} )
+					this.loadUser(newUser)
 				});
 			}
 			this.displayFaceBox(this.calculateFaceLocation(response))
@@ -79,7 +81,7 @@ class App extends Component {
 
 	onRouteChange = (route) => {
 		this.setState({route})
-		this.setState({ input: ""})
+	    window.localStorage.setItem('route', route);
 	}
 
 	render(){

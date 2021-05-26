@@ -1,5 +1,6 @@
 .center {
-	margin-top:5px;}
+	margin-top:5px;
+}
 .bounding-box {
 	position: absolute;
 	box-shadow: 0 0 0 3px #149df2 inset;
@@ -7,4 +8,10 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	cursor: pointer;
+}
+
+#inputimage {
+	width: 400px;
+	height:auto;
+	max-width: calc(100vw - 10vw);
 }

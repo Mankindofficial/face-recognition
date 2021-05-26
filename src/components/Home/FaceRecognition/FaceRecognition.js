@@ -4,12 +4,10 @@ import './FaceRecognition.css';
 const FaceRecognition = ({ imageUrl, box }) => {
 	return(
 		<div className='center'>
-			<div style={{position:'relative', marginBottom:"5rem"}}>
+			<div style={{position:'relative', margin:"1rem 0 5rem 0"}}>
 				<img id='inputimage'
 					alt='' 
 					src={imageUrl}
-					width='400px'
-					height='auto' 
 				/>
 				<div className='bounding-box' style={{top:box.topRow, right:box.rightCol, bottom:box.bottomRow, left:box.leftCol}}></div>
 			</div>

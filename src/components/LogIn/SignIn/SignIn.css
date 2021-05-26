@@ -13,11 +13,10 @@ label{
 }
 .input{
 	font-family:courier;
-	/*width:80%;*/
-	height:20px;
+	height:30px;
+	padding: 0 15px;
 	background:none;
-	border-radius:3px;
-	border:1px solid black;
+	border:2px solid black;
 }
 .input:hover{
 	background: black;
@@ -25,24 +24,34 @@ label{
 }
 .signIn{
 	font-family:courier;
-	font-size:.7em;
+	font-size:12px;
 	font-weight:bold;
-	border:1px solid black;
-	border-radius:3px;
-	background:none;
-	margin-top:15px;
+	border:2px solid black;
+	background: black;
+	color:white;
+	margin-top:70px;
 	cursor:pointer;
-	height:20px;
+	height:25px;
+	padding: 0px 12px;
 }
 .register{
 	margin-top:20px;
 	font-size:.7em;
 }
-.link {
-cursor:pointer;
-display:inline-block;
+.link{
 }
-.signIn:hover, .link:hover{
+.link {
+	padding:2px;
+	cursor:pointer;
+	display:inline-block;
+	border-bottom: 2px solid black;
+}
+.signIn:hover{
+	background: transparent;
+	color:black;
+} 
+
+.link:hover{
 	background: black;
 	color:white;
 }

@@ -18,25 +18,30 @@ class SignIn extends Component {
 		this.setState({signInPassword: event.target.value})
 	}
 
-	onSignIn = () => {
-		fetch('http://localhost:5000/signin', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body:JSON.stringify({
-				username:this.state.signInUsername,
-				password: this.state.signInPassword
+	onSignIn = (e) => {
+		e.preventDefault()
+		if (this.state.signInPassword === "" || this.state.signInUsername === "") {
+			alert("Fill in your details!")
+		} else {
+			fetch('https://pacific-savannah-26623.herokuapp.com/signin', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body:JSON.stringify({
+					username:this.state.signInUsername,
+					password: this.state.signInPassword
+				})
 			})
-		})
-		.then(response => response.json())
-		.then(user => {
-			if(user._id){
-				this.props.loadUser(user);
-				this.props.onRouteChange('home');
-				alert("Sign in successful")
-			} else {
-				alert(user)
-			}
-		})
+			.then(response => response.json())
+			.then(user => {
+				if(user.name){
+					this.props.loadUser(user);
+					this.props.onRouteChange('home');
+					alert("Sign in successful")
+				} else {
+					alert(user)
+				}
+			})
+		}
 	}
 
 	render(){
@@ -47,7 +52,7 @@ class SignIn extends Component {
 					<h3 className='dim' onClick={() => onRouteChange('register')} style={{textDecoration:'underline', paddingRight:'10px', cursor: 'pointer'}}>Register</h3>
 				</nav>
 				<div  className='center'>
-					<div className='shadow' style={{borderRadius:'3px', padding:'15px 50px'}}>
+					<form onSubmit={this.onSignIn} className='shadow' style={{padding:'15px 50px'}}>
 						<p className="head">Sign In</p>
 						<div> 
 							<label>Username</label>
@@ -63,7 +68,7 @@ class SignIn extends Component {
 						<div className='register'>
 							<span>No Account Yet? </span><div className='link' onClick={() => onRouteChange('register')}>Register</div>
 						</div>
-					</div>	
+					</form>	
 				</div>
 			</div>
 		);
