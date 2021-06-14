@@ -7,7 +7,8 @@ const ImageRecognitionForm = ({ onInputChange, onButtonSubmit}) => {
 			<div className='center'>
 				<form onClick={onButtonSubmit} className='center form shadow' style={{padding:'20px'}}>
 					<input 
-					type='text' 
+					type='text'
+					placeholder="Paste image link here"
 					style={{padding:'5px',  width:'75%', flex:'1'}}
 					onChange={onInputChange}/>
 					<input 
